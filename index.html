@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant & Flower Health Detection</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Navigation / Header -->
+        <header class="main-header">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>PlantCare.AI</span>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-target="home-section"><i class="fa-solid fa-house"></i>
+                    Home</button>
+                <button class="nav-btn" data-target="history-section"><i class="fa-solid fa-clock-rotate-left"></i>
+                    History</button>
+            </nav>
+        </header>
+
+        <!-- HOME SECTION -->
+        <section id="home-section" class="active-section">
+            <div class="hero-card glass-panel">
+                <h1>Scan • Detect • Heal</h1>
+                <p>Instant AI diagnosis for your plants. Upload a photo to get a detailed health check and care guide.
+                </p>
+
+                <div class="action-area">
+                    <label for="file-upload" class="upload-btn">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Upload or Take Photo</span>
+                    </label>
+                    <input type="file" id="file-upload" accept="image/*" hidden>
+                </div>
+            </div>
+
+            <div class="tips-container">
+                <h3><i class="fa-regular fa-lightbulb"></i> Quick Tips for Best Results</h3>
+                <div class="tips-grid">
+                    <div class="tip-card glass-panel" onclick="showTipModal('lighting')">
+                        <i class="fa-solid fa-sun"></i>
+                        <p>Ensure good lighting</p>
+                    </div>
+                    <div class="tip-card glass-panel" onclick="showTipModal('focus')">
+                        <i class="fa-solid fa-crop-simple"></i>
+                        <p>Focus on the affected area</p>
+                    </div>
+                    <div class="tip-card glass-panel" onclick="showTipModal('blur')">
+                        <i class="fa-solid fa-image"></i>
+                        <p>Avoid blurry images</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIP MODAL -->
+        <div id="tip-modal" class="modal-overlay">
+            <div class="modal-content">
+                <i id="modal-icon" class="fa-solid fa-sun modal-icon"></i>
+                <h3 id="modal-title" class="modal-title">Tip Title</h3>
+                <p id="modal-desc" class="modal-desc">Tip description goes here.</p>
+                <button class="modal-close-btn" onclick="closeTipModal()">Got it!</button>
+            </div>
+        </div>
+
+        <!-- RESULT SECTION -->
+        <section id="result-section" class="hidden-section">
+            <div class="back-nav">
+                <button class="back-btn" onclick="showSection('home-section')"><i class="fa-solid fa-arrow-left"></i>
+                    Back to Home</button>
+            </div>
+
+            <div class="result-content">
+                <div class="image-preview-container glass-panel">
+                    <img id="preview-image" src="" alt="Uploaded Plant">
+                    <div class="scan-overlay" id="scan-overlay">
+                        <div class="scanner-line"></div>
+                    </div>
+                </div>
+
+                <div id="loading-indicator" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing plant health...</p>
+                </div>
+
+                <div id="analysis-result" class="hidden">
+                    <div class="diagnosis-header glass-panel">
+                        <div class="status-badge" id="status-badge">Critical</div>
+                        <h2 id="issue-title">Root Rot</h2>
+                        <div class="confidence-meter">
+                            <span>Confidence: <span id="confidence-score">98%</span></span>
+                            <div class="meter-bar">
+                                <div class="meter-fill" id="meter-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-card glass-panel">
+                            <h3><i class="fa-solid fa-circle-info"></i> Overview</h3>
+                            <p id="issue-overview">Description of the issue goes here.</p>
+                        </div>
+
+                        <div class="detail-card glass-panel">
+                            <h3><i class="fa-solid fa-user-doctor"></i> Treatment</h3>
+                            <ul id="fix-steps-list">
+                                <!-- Steps injected via JS -->
+                            </ul>
+                        </div>
+
+                        <div class="detail-card glass-panel">
+                            <h3><i class="fa-solid fa-calendar-check"></i> Weekly Care</h3>
+                            <ul id="weekly-care-list">
+                                <!-- Care injected via JS -->
+                            </ul>
+                        </div>
+
+                        <div class="detail-card glass-panel">
+                            <h3><i class="fa-solid fa-shield-halved"></i> Prevention</h3>
+                            <ul id="prevention-list">
+                                <!-- Prevention injected via JS -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button id="save-result-btn" class="primary-btn"><i class="fa-solid fa-bookmark"></i> Save to
+                        History</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTORY SECTION -->
+        <section id="history-section" class="hidden-section">
+            <div class="history-header">
+                <h2>Your Garden History</h2>
+                <button id="clear-history-btn" class="danger-btn"><i class="fa-solid fa-trash"></i> Clear All</button>
+            </div>
+            <div id="history-list" class="history-list">
+                <!-- History items injected via JS -->
+                <div class="empty-state">
+                    <p>No scans yet. Go to Home to scan your first plant!</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
